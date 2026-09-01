@@ -32,4 +32,128 @@ header.topbar .actions button{
   padding:6px 12px; border-radius:6px; margin-left:8px; cursor:pointer; font-size:13px;
 }
 .layout{grid-column:1/4; display:grid; grid-template-columns:280px 1fr 340px; overflow:hidden;}
-[FULL_HTML_CONTENT_TRUNCATED_FOR_DISPLAY_SEE_ACTUAL_CALL]
+aside.sidebar-left{
+  background:var(--bg-card); border-right:1px solid var(--border);
+  padding:20px; overflow-y:auto;
+}
+.progress-box{margin-bottom:20px;}
+.progress-box .bar{
+  height:8px; background:var(--border); border-radius:5px; overflow:hidden; margin-top:6px;
+}
+.progress-box .fill{height:100%; background:var(--accent); width:0%; transition:width .4s;}
+.nav-unit{
+  padding:10px 12px; border-radius:6px; cursor:pointer; font-size:13.5px; margin-bottom:6px;
+  border:1px solid transparent; color:var(--text-main);
+}
+.nav-unit:hover{background:var(--accent-soft);}
+.nav-unit.active{background:var(--accent); color:#fff; font-weight:600;}
+.quick-index{margin-top:20px; font-size:13px; color:var(--muted);}
+.quick-index ul{padding-left:16px; margin:6px 0;}
+.quick-index li{margin-bottom:4px; cursor:pointer;}
+.quick-index li:hover{color:var(--accent);}
+main.reader{overflow-y:auto; padding:40px 60px; background:var(--bg-canvas);}
+.reader-frame{max-width:720px; margin:0 auto;}
+.reader-frame h1{font-family:Georgia,'Merriweather',serif; color:var(--accent); font-size:30px; margin-bottom:4px;}
+.reader-frame .meta{font-size:13px; color:var(--muted); border-bottom:2px solid var(--border); padding-bottom:10px; margin-bottom:24px;}
+.reader-frame h2{font-family:Georgia,'Merriweather',serif; color:var(--accent); font-size:21px; margin-top:32px;}
+.reader-frame p{font-size:18px; line-height:1.7; margin-bottom:20px;}
+.reader-frame table{width:100%; border-collapse:collapse; margin:18px 0; font-size:14px;}
+.reader-frame td,.reader-frame th{border:1px solid var(--border); padding:8px 10px; text-align:left;}
+.reader-frame th{background:var(--accent-soft);}
+blockquote{
+  border-left:4px solid var(--accent); background:var(--accent-soft);
+  margin:22px 0; padding:14px 20px; font-style:italic; font-size:16.5px; border-radius:0 6px 6px 0;
+}
+blockquote .cite{display:block; margin-top:8px; font-style:normal; font-size:13px; color:var(--muted); font-weight:600;}
+.term{color:var(--accent); font-weight:600; cursor:pointer; border-bottom:1px dotted var(--accent);}
+aside.sidebar-right{
+  background:var(--bg-card); border-left:1px solid var(--border); padding:20px; overflow-y:auto;
+}
+.tool-title{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin:18px 0 10px;}
+.tool-title:first-child{margin-top:0;}
+.btn-tool{
+  display:block; width:100%; padding:10px; margin-bottom:8px; background:var(--accent);
+  color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600; font-size:13px;
+}
+.concept-pill{
+  background:var(--accent-soft); border:1px solid var(--border); color:var(--accent);
+  padding:8px 10px; border-radius:6px; font-size:12.5px; margin-bottom:7px; cursor:pointer;
+}
+#glossaryPanel, #flashPanel, #quizPanel{display:none;}
+.flashcard{
+  background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; padding:16px;
+  min-height:90px; display:flex; align-items:center; justify-content:center; text-align:center;
+  cursor:pointer; font-size:13.5px; margin-bottom:10px;
+}
+.repaso-item{border:1px solid var(--border); border-radius:8px; margin-bottom:8px; overflow:hidden;}
+.repaso-q{padding:10px 12px; font-size:13px; font-weight:600; cursor:pointer; background:var(--bg-canvas);}
+.repaso-a{padding:0 12px; font-size:12.5px; color:var(--muted); max-height:0; overflow:hidden; transition:max-height .25s ease, padding .25s ease; background:var(--accent-soft);}
+.repaso-a.open{padding:10px 12px; max-height:300px;}
+.repaso-counter{font-size:12px; color:var(--muted); margin-bottom:10px;}
+#closeSideTool{float:right; cursor:pointer; color:var(--muted); font-size:12px;}
+.unit-group-label{font-size:11px; font-weight:700; text-transform:uppercase; color:var(--muted); margin:14px 0 4px;}
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="brand">📚 Introducción a las Ciencias Políticas — Guía Completa (Unidades I-VI)</div>
+  <div class="actions">
+    <button onclick="toggleTheme()">🌙 Modo Noche</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar-left">
+    <div class="progress-box">
+      <div style="font-size:13px; font-weight:600;">📊 Progreso general</div>
+      <div class="bar"><div class="fill" id="progressFill"></div></div>
+      <div id="progressLabel" style="font-size:12px; color:var(--muted); margin-top:4px;">0% completado</div>
+    </div>
+
+    <div class="unit-group-label">Primer parcial</div>
+    <div id="navUnitsP1"></div>
+    <div class="unit-group-label">Segundo parcial</div>
+    <div id="navUnitsP2"></div>
+
+    <div class="quick-index">
+      <div style="font-weight:600; color:var(--text-main); font-size:13px;">📍 Índice rápido</div>
+      <ul id="sectionIndex"></ul>
+    </div>
+  </aside>
+
+  <main class="reader">
+    <article class="reader-frame" id="readerFrame"></article>
+  </main>
+
+  <aside class="sidebar-right">
+    <div class="tool-title">🎯 Herramientas</div>
+    <button class="btn-tool" onclick="showTool('glossary')">🔑 Glosario</button>
+    <button class="btn-tool" style="background:#059669;" onclick="showTool('flash')">💡 Flashcards</button>
+    <button class="btn-tool" style="background:#D97706;" onclick="showTool('quiz')">❓ Preguntas de Repaso</button>
+
+    <div id="glossaryPanel">
+      <span id="closeSideTool" onclick="hideTools()">✕ cerrar</span>
+      <div class="tool-title">🔑 Glosario de la unidad</div>
+      <div id="glossaryList"></div>
+    </div>
+
+    <div id="flashPanel">
+      <span id="closeSideTool" onclick="hideTools()">✕ cerrar</span>
+      <div class="tool-title">💡 Tarjetas de memoria</div>
+      <div id="flashList"></div>
+    </div>
+
+    <div id="quizPanel">
+      <span id="closeSideTool" onclick="hideTools()">✕ cerrar</span>
+      <div class="tool-title">❓ Preguntas de repaso completas</div>
+      <div id="quizBody"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const UNITS = [{"id": "u1", "title": "Unidad I", "subtitle": "La política como poder y como participación", "sections": [{"h": "1. ¿Qué es la política?", "p": ["Existe política allí donde una colectividad debe decidir cómo organizarse, distribuir recursos, procesar conflictos y establecer reglas comunes. La política no comienza con una elección: comienza cuando aparecen relaciones de <span class='term' data-term='poder'>poder</span> y decisiones que afectan a otros.", "Aristóteles sostuvo que el ser humano es un animal político: vive en comunidad y desarrolla su existencia dentro de formas de organización colectiva. Max Weber vinculó la política con la dirección o influencia sobre la dirección de una asociación política, especialmente el Estado."], "quote": {"text": "La política es el proceso mediante el cual una sociedad organiza el poder, procesa sus conflictos, construye representación, adopta decisiones colectivas y define reglas para convivir.", "cite": "Formulación de síntesis — Manual de Unidad I"}}, {"h": "2. La política como poder", "p": ["El <span class='term' data-term='poder'>poder</span> es la capacidad de influir sobre conductas o decisiones. Se distinguen tres formas básicas de ejercicio: <b>coerción</b>, <b>persuasión</b> y <b>autoridad legítima</b>."], "table": {"headers": ["Forma", "Fundamento", "Ejemplo"], "rows": [["Coerción", "Fuerza, amenaza o sanción", "Cumplimiento ante una sanción prevista"], ["Persuasión", "Ideas, prestigio, negociación", "Movimiento que instala un tema en la agenda"], ["Autoridad legítima", "Reconocimiento del derecho a decidir", "Sentencia de un juez competente"]]}}, {"h": "3. Tres miradas sobre el poder: Weber, Arendt y Foucault", "p": ["<b>Max Weber</b> distingue autoridad tradicional, carismática y legal-racional. <b>Hannah Arendt</b> distingue poder y violencia. <b>Michel Foucault</b> sostiene que el poder circula a través de redes y relaciones sociales."]}, {"h": "6. La política como participación", "p": ["Participar significa intentar incidir, opinar, decidir u organizarse respecto de cuestiones públicas."], "table": {"headers": ["Participación institucional", "Participación no institucional"], "rows": [["Voto y elecciones", "Marchas y protestas"], ["Partidos y candidaturas", "Campañas digitales"], ["Peticiones y audiencias públicas", "Movimientos sociales"]]}}, {"h": "9. Liderazgo transaccional y transformacional", "p": ["James MacGregor Burns distingue el <b>liderazgo transaccional</b> del <b>liderazgo transformacional</b>."]}, {"h": "14.1 Democracia delegativa", "p": ["Guillermo O'Donnell utiliza el concepto de <span class='term' data-term='democracia delegativa'>democracia delegativa</span> para analizar presidentes que interpretan su victoria como autorización amplia."], "quote": {"text": "Elección democrática no equivale a poder ilimitado.", "cite": "Regla fundamental — Unidad I, sección 14"}}, {"h": "17. El sistema político (Easton)", "p": ["David Easton propone analizar la política como un sistema: inputs, procesamiento, outputs y feedback."]}], "glossary": [["Política", "Proceso mediante el cual una sociedad organiza el poder, procesa conflictos y adopta decisiones colectivas."], ["Poder", "Capacidad de influir sobre conductas o decisiones."], ["Autoridad", "Poder reconocido como válido para adoptar determinadas decisiones."], ["Legitimidad", "Creencia o reconocimiento de que el ejercicio del poder es válido o justificable."], ["Liderazgo transaccional", "Conducción basada en negociación e intercambios concretos."], ["Liderazgo transformacional", "Conducción orientada a modificar valores y objetivos colectivos."], ["Clientelismo", "Intercambio particularizado de recursos o beneficios por apoyo político."], ["Democracia delegativa", "Concepto de O'Donnell: el presidente interpreta la elección como delegación amplia y debilita controles."], ["Sistema político", "Conjunto de instituciones, actores, normas y relaciones mediante los cuales se organiza el poder."]], "repaso": [["¿Por qué la política no puede reducirse a elecciones, partidos o cargos públicos?", "Porque existe política donde hay relaciones de poder y decisiones que afectan a otros, no solo en elecciones o cargos formales."]]}];
+</script>
+</body>
+</html>
