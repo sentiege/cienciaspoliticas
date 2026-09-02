@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICP · Material de estudio responsive</title>
+<style>
+:root{--navy:#0f172a;--blue:#2563eb;--light:#f4f6f9;--border:#dfe6f0}*{box-sizing:border-box}body{margin:0;background:var(--light);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--navy)}header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;color:#fff;background:linear-gradient(135deg,#0f172a,#1e3a8a);box-shadow:0 4px 20px #0f172a33}.brand{font-weight:800;font-size:15px}.tabs{display:flex;gap:8px}.tab{border:1px solid #ffffff44;background:#ffffff14;color:#fff;border-radius:999px;padding:8px 12px;font-weight:700;cursor:pointer}.tab.active{background:#fff;color:#1e3a8a}.frame{width:100%;height:calc(100vh - 62px);border:0;display:block}@media(max-width:600px){header{padding:11px 12px}.brand{font-size:12px}.tab{font-size:11px;padding:7px 9px}.frame{height:calc(100vh - 57px)}}
+</style>
+</head>
+<body>
+<header><div class="brand">📚 ICP · Material de estudio</div><nav class="tabs"><button class="tab active" onclick="openMaterial('1erparcial.html',this)">Unidades I–III</button><button class="tab" onclick="openMaterial('unidades4a6.html',this)">Unidades IV–VI</button></nav></header>
+<iframe id="reader" class="frame" src="1erparcial.html" title="Material de estudio"></iframe>
+<script>
+const responsiveCSS=`
+@media(max-width:860px){
+ body{display:block!important;height:auto!important;overflow:auto!important;background:var(--bg,#f4f6f9)!important}
+ header{position:sticky!important;top:0!important;z-index:100!important;display:flex!important;gap:7px!important;flex-wrap:wrap!important;padding:10px 12px!important}
+ header>div{font-size:12px!important;flex:1 0 100%!important}
+ header:before{content:'📚 Unidades';font-size:12px;font-weight:700;padding:8px 10px;border:1px solid #ffffff55;border-radius:999px;cursor:pointer;order:2}
+ header:after{content:'🎯 Herramientas';font-size:12px;font-weight:700;padding:8px 10px;border:1px solid #ffffff55;border-radius:999px;cursor:pointer;order:3}
+ .layout{display:block!important;overflow:visible!important;min-height:0!important}
+ main{padding:24px 16px!important;overflow:visible!important}
+ .frame{max-width:740px!important;margin:auto!important}
+ .frame h1{font-size:22px!important}.frame h2{font-size:18px!important}.frame p{font-size:16px!important;line-height:1.7!important}
+ aside.left,aside.right{position:fixed!important;top:0!important;bottom:0!important;width:84%!important;max-width:330px!important;z-index:200!important;padding:18px!important;overflow:auto!important;box-shadow:0 12px 32px #0008!important;transition:transform .25s ease!important}
+ aside.left{left:0!important;transform:translateX(-110%)!important}aside.right{right:0!important;transform:translateX(110%)!important}
+ aside.left.mobile-open,aside.right.mobile-open{transform:translateX(0)!important}
+ .table-wrap{overflow-x:auto!important}.frame table{min-width:420px!important}
+}
+`;
+function inject(){const f=document.getElementById('reader');const d=f.contentDocument;if(!d)return;const old=d.getElementById('responsivePatch');if(old)old.remove();const s=d.createElement('style');s.id='responsivePatch';s.textContent=responsiveCSS;d.head.appendChild(s);const h=d.querySelector('header');if(h&&!d.getElementById('mobileControls')){const c=d.createElement('div');c.id='mobileControls';c.style.cssText='display:none';h.appendChild(c);h.addEventListener('click',e=>{if(innerWidth>860)return;const x=e.target.textContent; if(x.includes('Unidades'))d.querySelector('aside.left').classList.toggle('mobile-open');if(x.includes('Herramientas'))d.querySelector('aside.right').classList.toggle('mobile-open')})}}
+function openMaterial(src,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const f=document.getElementById('reader');f.src=src;f.onload=inject}
+document.getElementById('reader').onload=inject;
+</script>
+</body>
+</html>
